@@ -1,0 +1,41 @@
+name: 'Code Health Check Report'
+description: 'Generate Code Health Check Report form an [action-code-health-check](https://github.com/Skywire/action-code-health-check/) run'
+inputs:
+  client-name:
+    description: 'Client Name for report'
+    required: true
+    default: '20.x'
+  repo-name:
+    description: 'Client Repository Name'
+    required: true
+  run-id:
+    description: 'Action Run ID containing code health artifacts'
+    required: true
+  github-token:
+    description: 'GitHub Token with permission to access the repository and its action runs'
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/checkout@v3
+      with:
+        repository: Skywire/action-code-health-report-generator
+        ref: main
+    - uses: actions/setup-python@v6
+      with:
+        python-version: '3.12'
+    - name: Generate Code Health Check Report
+      env:
+        GITHUB_TOKEN: ${{ inputs.github-token }}
+        CLIENT_NAME: ${{ inputs.client-name }}
+        REPO_NAME: ${{ inputs.repo-name }}
+        RUN_ID: ${{ inputs.run-id }}
+      shell: bash
+      run: |
+        pip install -r requirements.txt
+        python main.py
+
+    - uses: actions/upload-artifact@v4
+      with:
+        name: client-report
+        path: var/output/report.md

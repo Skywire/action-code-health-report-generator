@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 from github import Auth, Github
 from mdutils import MdUtils
 
-from generators import npm, biome, mago, jscpd, trivy
+from generators import npm, biome, mago, jscpd, trivy, gitleaks
 
 load_dotenv()
 
@@ -56,5 +56,8 @@ if __name__ == "__main__":
     md.new_header(1, 'Trivy')
     trivy.generate_vulnerability_report("var/reports/trivy-report.json", md)
     trivy.generate_secret_report("var/reports/trivy-report.json", md)
+
+    md.new_header(1, 'Gitleaks')
+    gitleaks.generate_report("var/reports/work", md)
 
     md.create_md_file()

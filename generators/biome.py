@@ -3,7 +3,7 @@ import json
 from mdutils import MdUtils
 
 def generate_report(path: str, md: MdUtils) -> None:
-    md.new_header(2, "Summary")
+    md.new_header(3, "Summary")
 
     with open(path, "r") as f:
         raw = f.read()

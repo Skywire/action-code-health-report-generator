@@ -2,13 +2,13 @@ from mdutils import MdUtils
 
 
 def generate_analyse_report(path: str, md: MdUtils) -> None:
-    md.new_header(2, 'Analyse')
+    md.new_header(3, 'Analyse')
 
     __generate_code_count_report(path, md)
 
 
 def generate_lint_report(path: str, md: MdUtils) -> None:
-    md.new_header(2, 'Lint')
+    md.new_header(3, 'Lint')
 
     __generate_code_count_report(path, md)
 

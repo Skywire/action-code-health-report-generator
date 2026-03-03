@@ -11,6 +11,12 @@ inputs:
   run-id:
     description: 'Action Run ID containing code health artifacts'
     required: true
+  shared-drive-id:
+    description: 'Shared Google Drive ID to upload the report'
+    required: true
+  google-service-account:
+    description: 'Service account credentials JSON (stored as a secret)'
+    required: true
   github-token:
     description: 'GitHub Token with permission to access the repository and its action runs'
     required: true
@@ -24,12 +30,18 @@ runs:
     - uses: actions/setup-python@v6
       with:
         python-version: '3.12'
+    - name: Export Google Service Account Credentials
+      env:
+        GOOGLE_SERVICE_ACCOUNT_KEY: ${{ inputs.google-service-account }}
+      run: echo "$GOOGLE_SERVICE_ACCOUNT_KEY" > var/credentials/google-service-account.json
+      shell: bash
     - name: Generate Code Health Check Report
       env:
         GITHUB_TOKEN: ${{ inputs.github-token }}
         CLIENT_NAME: ${{ inputs.client-name }}
         REPO_NAME: ${{ inputs.repo-name }}
         RUN_ID: ${{ inputs.run-id }}
+        SHARED_DRIVE_ID: ${{ inputs.shared-drive-id }}
       shell: bash
       run: |
         pip install -r requirements.txt

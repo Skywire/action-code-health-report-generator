@@ -4,8 +4,8 @@ from mdutils import MdUtils
 
 
 def generate_audit_report(path: str, md: MdUtils) -> None:
-    md.new_header(2, 'Audit')
-    md.new_header(3, "Vulnerabilities")
+    md.new_header(3, 'Audit')
+    md.new_header(4, "Vulnerabilities")
 
     with open(path, "r") as f:
         report = json.load(f)
@@ -18,7 +18,7 @@ def generate_audit_report(path: str, md: MdUtils) -> None:
 
 
 def generate_outdated_report(path: str, md: MdUtils) -> None:
-    md.new_header(2, 'Outdated')
+    md.new_header(3, 'Outdated')
 
     with open(path, "r") as f:
         report = json.load(f)

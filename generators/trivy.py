@@ -1,10 +1,15 @@
 import json
+import os
 
 from mdutils import MdUtils
 
 
 def generate_vulnerability_report(path: str, md: MdUtils) -> None:
-    md.new_header(2, "Vulnerabilities")
+    md.new_header(3, "Vulnerabilities")
+    if (not os.path.exists(path)):
+        md.write("No Results.")
+
+        return
 
     with open(path, "r") as f:
         report = json.load(f)
@@ -25,7 +30,12 @@ def generate_vulnerability_report(path: str, md: MdUtils) -> None:
 
 
 def generate_secret_report(path: str, md: MdUtils) -> None:
-    md.new_header(2, "Secrets")
+    md.new_header(3, "Secrets")
+
+    if (not os.path.exists(path)):
+        md.write("No Results.")
+
+        return
 
     with open(path, "r") as f:
         report = json.load(f)

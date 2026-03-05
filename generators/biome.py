@@ -8,10 +8,13 @@ def generate_report(path: str, md: MdUtils) -> None:
     with open(path, "r") as f:
         raw = f.read()
         raw = raw.replace("\n", "")
-        report = json.loads(raw)
-        summary = report["summary"]
-        rows = ["Check", "Count"]
-        for level, count in summary.items():
-            rows.extend([level, count])
+        try:
+            report = json.loads(raw)
+            summary = report["summary"]
+            rows = ["Check", "Count"]
+            for level, count in summary.items():
+                rows.extend([level, count])
 
-        md.new_table(2, int(len(rows) / 2), rows)
+            md.new_table(2, int(len(rows) / 2), rows)
+        except json.JSONDecodeError:
+            md.write("No Results.")

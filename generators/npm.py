@@ -23,5 +23,13 @@ def generate_outdated_report(path: str, md: MdUtils) -> None:
     with open(path, "r") as f:
         report = json.load(f)
 
-        if not report:
+        if not report or len(report) == 0:
             md.write('0 Outdated Packages')
+
+            return
+
+        rows = ["Package", "Current", "Wanted", "Latest"]
+        for package, details in report.items():
+            rows.extend([package, details['current'], details['wanted'], details['latest']])
+
+        md.new_table(4, int(len(rows) / 4), rows)

@@ -37,9 +37,12 @@ def download_artifacts():
         if status == 302:
             urllib.request.urlretrieve(headers['location'], f"var/tmp/{filename}")
             with zipfile.ZipFile(f"var/tmp/{filename}", 'r') as f:
-                f.extractall("var/reports")
+                f.extractall("var/reports", )
     g.close()
 
+    # Normalise the runner path which is included in the gitleaks artifact and changes depending on the runner.
+    if os.path.exists('var/reports/_work'):
+        os.rename('var/reports/_work', 'var/reports/work')
 
 def upload_to_google_drive(path: str):
     creds = ServiceAccountCredentials.from_json_keyfile_name('var/credentials/google-service-account.json')

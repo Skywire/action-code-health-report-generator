@@ -6,7 +6,7 @@ from mdutils import MdUtils
 
 def generate_vulnerability_report(path: str, md: MdUtils) -> None:
     md.new_header(3, "Vulnerabilities")
-    if (not os.path.exists(path)):
+    if not os.path.exists(path):
         md.write("No Results.")
 
         return
@@ -32,7 +32,7 @@ def generate_vulnerability_report(path: str, md: MdUtils) -> None:
 def generate_secret_report(path: str, md: MdUtils) -> None:
     md.new_header(3, "Secrets")
 
-    if (not os.path.exists(path)):
+    if not os.path.exists(path):
         md.write("No Results.")
 
         return

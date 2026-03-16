@@ -1,9 +1,15 @@
 import json
+import os
 
 from mdutils import MdUtils
 
 def generate_report(path: str, md: MdUtils) -> None:
     md.new_header(3, "Summary")
+
+    if not os.path.exists(path):
+        md.write("No Results.")
+
+        return
 
     with open(path, "r") as f:
         raw = f.read()

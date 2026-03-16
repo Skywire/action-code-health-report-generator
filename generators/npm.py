@@ -1,4 +1,5 @@
 import json
+import os
 
 from mdutils import MdUtils
 
@@ -6,6 +7,11 @@ from mdutils import MdUtils
 def generate_audit_report(path: str, md: MdUtils) -> None:
     md.new_header(3, 'Audit')
     md.new_header(4, "Vulnerabilities")
+
+    if not os.path.exists(path):
+        md.write("No Results.")
+
+        return
 
     with open(path, "r") as f:
         report = json.load(f)
@@ -19,6 +25,11 @@ def generate_audit_report(path: str, md: MdUtils) -> None:
 
 def generate_outdated_report(path: str, md: MdUtils) -> None:
     md.new_header(3, 'Outdated')
+
+    if not os.path.exists(path):
+        md.write("No Results.")
+
+        return
 
     with open(path, "r") as f:
         report = json.load(f)

@@ -1,11 +1,19 @@
 import glob
 import json
+import os
 
 from mdutils import MdUtils
 
 
 def generate_report(path: str, md: MdUtils) -> None:
+
     file_path = glob.glob(f"{path}/**/*.sarif", recursive=True).pop()
+
+    if not os.path.exists(path):
+        md.write("No Results.")
+
+        return
+
     with open(file_path, "r") as f:
         runs = json.load(f)['runs']
 

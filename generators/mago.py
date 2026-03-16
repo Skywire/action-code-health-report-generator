@@ -1,3 +1,5 @@
+import os
+
 from mdutils import MdUtils
 
 
@@ -14,6 +16,11 @@ def generate_lint_report(path: str, md: MdUtils) -> None:
 
 
 def __generate_code_count_report(path: str, md: MdUtils) -> None:
+    if not os.path.exists(path):
+        md.write("No Results.")
+
+        return
+
     with open(path, "r") as f:
         report = f.readlines()
         report = [line.strip() for line in report if line.strip()]

@@ -21,7 +21,7 @@ an [action-code-health-check](https://github.com/Skywire/action-code-health-chec
     - uses: Skywire/action-code-health-report-generator@main
       with:
         client-name: 'Example Client'
-        repo-name: 'Skywire/exampleclient.com'
+        repo-name: ${{ github.repository }}
         run-id: ${ GITHUB_RUN_ID }
         shared-drive-id: '1Ym86xTbfqIV-cPzL5ZCzcw3ftY1NWFks'
         google-service-account: ${{ secrets.GOOGLE_SERVICE_ACCOUNT }}

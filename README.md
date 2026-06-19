@@ -27,3 +27,7 @@ an [action-code-health-check](https://github.com/Skywire/action-code-health-chec
         google-service-account: ${{ secrets.GOOGLE_SERVICE_ACCOUNT }}
         github-token: ${{ secrets.GITHUB_TOKEN }}
 ```
+
+### Upload to Google Drive
+
+Share the folder with `shared-drive-id` with the Google Cloud Service Account email, this can be found in the service account JSON file as `client_email`

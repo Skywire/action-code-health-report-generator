@@ -53,7 +53,8 @@ def upload_to_google_drive(path: str):
 
     service = build('drive', 'v3', credentials=creds)
 
-    file_metadata = {'name': f"{date.today().strftime('%b %d %Y')}-{client_name.split('|').pop(1).strip()}-client-report.pdf", 'parents': [shared_drive_id]}
+    client_name_part = client_name.split('|').pop(1).strip() if '|' in client_name else client_name
+    file_metadata = {'name': f"{date.today().strftime('%b %d %Y')}-{client_name_part}-client-report.pdf", 'parents': [shared_drive_id]}
     media = MediaFileUpload(path, mimetype='application/pdf')
 
     f = service.files().create(body=file_metadata, media_body=media, supportsAllDrives=True).execute()
